@@ -75,6 +75,36 @@ public class Main {
 //            System.out.println(e.getMessage());
 //        }
 
+//        Film film = new Film();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите id фильма");
+//        int findId = Integer.parseInt(scanner.nextLine());
+//        Film findFilm = entityManager.find(Film.class, findId);
+//        if (findFilm  == null) {
+//            System.out.println("Фильм не найден");
+//            return;
+//        }
+//
+//        System.out.println("Введите название фильма " + findFilm.getTitle());
+//        findFilm.setTitle(scanner.nextLine());
+//        System.out.println("Введите рейтинг " + findFilm.getRating());
+//        findFilm.setRating(Double.parseDouble(scanner.nextLine()));
+//        System.out.println("Введите жанр фильма " + findFilm.getGenre());
+//        findFilm.setGenre(scanner.nextLine());
+//        System.out.println("Введите год выпуск фильма " + findFilm.getReleaseYear());
+//        findFilm.setReleaseYear(Integer.parseInt(scanner.nextLine()));
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.merge(findFilm);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Фильм обновлен");
+//
+//        } catch (Exception e){
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
+
+
         Film film = new Film();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите id фильма");
@@ -86,13 +116,39 @@ public class Main {
         }
 
         System.out.println("Введите название фильма " + findFilm.getTitle());
-        findFilm.setTitle(scanner.nextLine());
+        String findName = scanner.nextLine();
+        if (findName.isEmpty()) {
+            findFilm.setTitle(findFilm.getTitle());
+        } else {
+            findFilm.setTitle(findName);
+        }
+
         System.out.println("Введите рейтинг " + findFilm.getRating());
-        findFilm.setRating(Double.parseDouble(scanner.nextLine()));
+        String findRating = scanner.nextLine();
+        if (findRating.isEmpty()) {
+            findFilm.setRating(findFilm.getRating());
+        } else {
+            findFilm.setRating(Double.parseDouble(findRating));
+        }
+        //findFilm.setRating(Double.parseDouble(scanner.nextLine()));
+
         System.out.println("Введите жанр фильма " + findFilm.getGenre());
-        findFilm.setGenre(scanner.nextLine());
+        String findGenre = scanner.nextLine();
+        if (findGenre.isEmpty()) {
+            findFilm.setGenre(findFilm.getGenre());
+        } else {
+            findFilm.setGenre(findGenre);
+        }
+        //findFilm.setGenre(scanner.nextLine());
+
         System.out.println("Введите год выпуск фильма " + findFilm.getReleaseYear());
-        findFilm.setReleaseYear(Integer.parseInt(scanner.nextLine()));
+        String findReleaseYear = scanner.nextLine();
+        if (findReleaseYear.isEmpty()) {
+            findFilm.setReleaseYear(findFilm.getReleaseYear());
+        } else {
+            findFilm.setReleaseYear(Integer.parseInt(findReleaseYear));
+        }
+        //findFilm.setReleaseYear(Integer.parseInt(scanner.nextLine()));
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(findFilm);
@@ -103,6 +159,7 @@ public class Main {
             entityManager.getTransaction().rollback();
             System.out.println(e.getMessage());
         }
+
 
 
 
