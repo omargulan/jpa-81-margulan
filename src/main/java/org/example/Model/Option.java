@@ -9,19 +9,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "products")
-public class Product {
+@Table(name = "options")
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "option")
     private List<Value> values;
-
 }

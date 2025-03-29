@@ -105,64 +105,100 @@ public class Main {
 //        }
 
 
-        Film film = new Film();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите id фильма");
-        int findId = Integer.parseInt(scanner.nextLine());
-        Film findFilm = entityManager.find(Film.class, findId);
-        if (findFilm  == null) {
-            System.out.println("Фильм не найден");
-            return;
+//        Film film = new Film();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите id фильма");
+//        int findId = Integer.parseInt(scanner.nextLine());
+//        Film findFilm = entityManager.find(Film.class, findId);
+//        if (findFilm  == null) {
+//            System.out.println("Фильм не найден");
+//            return;
+//        }
+//
+//        System.out.println("Введите название фильма " + findFilm.getTitle());
+//        String findName = scanner.nextLine();
+//        if (findName.isEmpty()) {
+//            findFilm.setTitle(findFilm.getTitle());
+//        } else {
+//            findFilm.setTitle(findName);
+//        }
+//
+//        System.out.println("Введите рейтинг " + findFilm.getRating());
+//        String findRating = scanner.nextLine();
+//        if (findRating.isEmpty()) {
+//            findFilm.setRating(findFilm.getRating());
+//        } else {
+//            findFilm.setRating(Double.parseDouble(findRating));
+//        }
+//        //findFilm.setRating(Double.parseDouble(scanner.nextLine()));
+//
+//        System.out.println("Введите жанр фильма " + findFilm.getGenre());
+//        String findGenre = scanner.nextLine();
+//        if (findGenre.isEmpty()) {
+//            findFilm.setGenre(findFilm.getGenre());
+//        } else {
+//            findFilm.setGenre(findGenre);
+//        }
+//        //findFilm.setGenre(scanner.nextLine());
+//
+//        System.out.println("Введите год выпуск фильма " + findFilm.getReleaseYear());
+//        String findReleaseYear = scanner.nextLine();
+//        if (findReleaseYear.isEmpty()) {
+//            findFilm.setReleaseYear(findFilm.getReleaseYear());
+//        } else {
+//            findFilm.setReleaseYear(Integer.parseInt(findReleaseYear));
+//        }
+//        //findFilm.setReleaseYear(Integer.parseInt(scanner.nextLine()));
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.merge(findFilm);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Фильм обновлен");
+//
+//        } catch (Exception e){
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
+//        Product product = entityManager.find(Product.class, 1);
+//        System.out.println("ID: " + product.getId());
+//        System.out.println("Названия: " + product.getName());
+//        System.out.println("ID Категория: " + product.getCategory().getId());
+//        System.out.println("Названия категорий: " + product.getCategory().getName());
+
+
+//        Category category = entityManager.find(Category.class, 1);
+
+//        System.out.println(category.getName());
+//        for (Product product: category.getProducts()){
+//            System.out.println(" - " + product.getName() + " (" + product.getPrice() + ")");
+//        }
+
+//        TypedQuery<Category> query = entityManager.createQuery("select c from Category c", Category.class);
+//        List<Category> categories = query.getResultList();
+//        for (Category category: categories){
+//            System.out.println(category.getId()+ ". "+category.getName());
+//            for (Product product: category.getProducts()){
+//            System.out.println(" - " + product.getName() + " (" + product.getPrice() + ")");
+//            }
+//
+//        }
+
+        TypedQuery<Product> queryProduct = entityManager.createQuery("select p from Product p", Product.class);
+        List<Product> products = queryProduct.getResultList();
+
+        TypedQuery<Category> queryCategory = entityManager.createQuery("select c from Category c", Category.class);
+        List<Category> categories = queryCategory.getResultList();
+
+
+        for (Product product: products){
+
+            System.out.println(product.getName() + product.getCategory().getName());
+            for (Category category : categories){
+                System.out.println(product.getName() + product.getCategory().getName()  );
+            }
+
+
         }
-
-        System.out.println("Введите название фильма " + findFilm.getTitle());
-        String findName = scanner.nextLine();
-        if (findName.isEmpty()) {
-            findFilm.setTitle(findFilm.getTitle());
-        } else {
-            findFilm.setTitle(findName);
-        }
-
-        System.out.println("Введите рейтинг " + findFilm.getRating());
-        String findRating = scanner.nextLine();
-        if (findRating.isEmpty()) {
-            findFilm.setRating(findFilm.getRating());
-        } else {
-            findFilm.setRating(Double.parseDouble(findRating));
-        }
-        //findFilm.setRating(Double.parseDouble(scanner.nextLine()));
-
-        System.out.println("Введите жанр фильма " + findFilm.getGenre());
-        String findGenre = scanner.nextLine();
-        if (findGenre.isEmpty()) {
-            findFilm.setGenre(findFilm.getGenre());
-        } else {
-            findFilm.setGenre(findGenre);
-        }
-        //findFilm.setGenre(scanner.nextLine());
-
-        System.out.println("Введите год выпуск фильма " + findFilm.getReleaseYear());
-        String findReleaseYear = scanner.nextLine();
-        if (findReleaseYear.isEmpty()) {
-            findFilm.setReleaseYear(findFilm.getReleaseYear());
-        } else {
-            findFilm.setReleaseYear(Integer.parseInt(findReleaseYear));
-        }
-        //findFilm.setReleaseYear(Integer.parseInt(scanner.nextLine()));
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(findFilm);
-            entityManager.getTransaction().commit();
-            System.out.println("Фильм обновлен");
-
-        } catch (Exception e){
-            entityManager.getTransaction().rollback();
-            System.out.println(e.getMessage());
-        }
-
-
-
-
 
     }
 }
