@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.example.Model.Category;
 import org.example.Model.Film;
 import org.example.Model.Product;
+import org.example.Model.Value;
 
 import java.util.List;
 import java.util.Scanner;
@@ -183,22 +184,81 @@ public class Main {
 //
 //        }
 
-        TypedQuery<Product> queryProduct = entityManager.createQuery("select p from Product p", Product.class);
-        List<Product> products = queryProduct.getResultList();
+//        TypedQuery<Product> queryProduct = entityManager.createQuery("select p from Product p", Product.class);
+//        List<Product> products = queryProduct.getResultList();
+//
+//        TypedQuery<Category> queryCategory = entityManager.createQuery("select c from Category c", Category.class);
+//        List<Category> categories = queryCategory.getResultList();
 
-        TypedQuery<Category> queryCategory = entityManager.createQuery("select c from Category c", Category.class);
-        List<Category> categories = queryCategory.getResultList();
+        List<Product> products = entityManager.createQuery("from Product", Product.class).getResultList();
+
+//        for (Product product: products){
+//
+//            System.out.println(product.getName() + product.getCategory().getName());
+//            for (Category category : categories){
+//                System.out.println(product.getName() + product.getCategory().getName()  );
+//            }
+//
+//
+//        }
+//        for (Product product: products){
+//            System.out.printf("%d. %s (%s)\n", product.getId(), product.getName(), product.getCategory().getName());
+//            for (Value value : product.getValues()) {
+//                System.out.println(value.getOption().getName()+" : " +value.getName());
+//
+//            }
+//        }
+//        Category category = entityManager.find(Category.class, 1);
+//        Product product = new Product();
+//        product.setName("Qualcomm X6");
+//        product.setPrice(259901.5);
+//        product.setCategory(category);
+//        try{
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(product);
+//            entityManager.getTransaction().commit();
+//        }catch (Exception e){
+//            entityManager.getTransaction().rollback();
+//            System.out.println("Возникла ошибка: " + e.getMessage());
+//            System.out.println();
+//        }
 
 
-        for (Product product: products){
-
-            System.out.println(product.getName() + product.getCategory().getName());
-            for (Category category : categories){
-                System.out.println(product.getName() + product.getCategory().getName()  );
-            }
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите id категорий");
+        int findId = Integer.parseInt(scanner.nextLine());
+        Category findCategory = entityManager.find(Category.class, findId);
+        if (findCategory  == null) {
+            System.out.println("Категория не найден");
+            return;
 
         }
+        Product product = new Product();
+
+        System.out.println("Введите название товара");
+        String productName = scanner.nextLine();
+        product.setName(productName);
+        System.out.println("Введите стоимость товара");
+        String price = scanner.nextLine();
+        product.setPrice(Double.parseDouble(price));
+
+        product.setCategory(findCategory);
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(product);
+            entityManager.getTransaction().commit();
+            System.out.println("Товар создан");
+            System.out.println("ID: " + product.getId());
+            System.out.println("стоимость: " + product.getPrice());
+            System.out.println("Название категории: " + product.getCategory().getName());
+        }catch (Exception e){
+            entityManager.getTransaction().rollback();
+            System.out.println("Возникла ошибка: " + e.getMessage());
+        }
+
+
+
+
 
     }
 }
