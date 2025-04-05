@@ -5,25 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-
-@Setter
-@Getter
-@Table(name = "films")
 @Entity
-public class Film {
+@Getter
+@Setter
+@Table (name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String title;
-
-    private double rating;
-
-    private String genre;
-    @Column( name = "release_year")
-    private int releaseYear;
+    private String name;
+    private String login;
+    private String password;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Enumerated
-    private Mpa mpa;
-
+    private Role role;
 }

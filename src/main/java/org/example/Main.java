@@ -1,10 +1,7 @@
 package org.example;
 
 import jakarta.persistence.*;
-import org.example.Model.Category;
-import org.example.Model.Film;
-import org.example.Model.Product;
-import org.example.Model.Value;
+import org.example.Model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -190,7 +187,7 @@ public class Main {
 //        TypedQuery<Category> queryCategory = entityManager.createQuery("select c from Category c", Category.class);
 //        List<Category> categories = queryCategory.getResultList();
 
-        List<Product> products = entityManager.createQuery("from Product", Product.class).getResultList();
+//        List<Product> products = entityManager.createQuery("from Product", Product.class).getResultList();
 
 //        for (Product product: products){
 //
@@ -224,37 +221,71 @@ public class Main {
 //        }
 
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите id категорий");
-        int findId = Integer.parseInt(scanner.nextLine());
-        Category findCategory = entityManager.find(Category.class, findId);
-        if (findCategory  == null) {
-            System.out.println("Категория не найден");
-            return;
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите id категорий");
+//        int findId = Integer.parseInt(scanner.nextLine());
+//        Category findCategory = entityManager.find(Category.class, findId);
+//        if (findCategory  == null) {
+//            System.out.println("Категория не найден");
+//            return;
+//
+//        }
+//        Product product = new Product();
+//
+//        System.out.println("Введите название товара");
+//        String productName = scanner.nextLine();
+//        product.setName(productName);
+//        System.out.println("Введите стоимость товара");
+//        String price = scanner.nextLine();
+//        product.setPrice(Double.parseDouble(price));
+//
+//        product.setCategory(findCategory);
+//        try{
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(product);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Товар создан");
+//            System.out.println("ID: " + product.getId());
+//            System.out.println("стоимость: " + product.getPrice());
+//            System.out.println("Название категории: " + product.getCategory().getName());
+//        }catch (Exception e){
+//            entityManager.getTransaction().rollback();
+//            System.out.println("Возникла ошибка: " + e.getMessage());
+//        }
+        //05-04-2025
+//        List<User> users = entityManager.createQuery("select u from User u", User.class)
+//                .getResultList();
+//        for (User user:users){
+//            System.out.println(user.getId()+" "+user.getName()+" "+user.getRole());
+//        }
 
+//        Film film = new Film();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите название фильма");
+//        film.setTitle(scanner.nextLine());
+//        System.out.println("Введите рейтинг");
+//        film.setRating(Double.parseDouble(scanner.nextLine()));
+//        System.out.println("Введите жанр фильма");
+//        film.setGenre(scanner.nextLine());
+//        System.out.println("Введите год выпуск фильма");
+//        film.setReleaseYear(Integer.parseInt(scanner.nextLine()));
+//        System.out.println("Введите MPA");
+//        film.setMpa(Mpa.valueOf(scanner.nextLine()));
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(film);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Фильм создан");
+//
+//        } catch (Exception e){
+//            entityManager.getTransaction().rollback();
+//            System.out.println(e.getMessage());
+//        }
+        List<Film> films = entityManager.createQuery("select f from Film f", Film.class).getResultList();
+        for (Film film : films){
+            System.out.println(film.getTitle()+ " "+ film.getMpa());
         }
-        Product product = new Product();
 
-        System.out.println("Введите название товара");
-        String productName = scanner.nextLine();
-        product.setName(productName);
-        System.out.println("Введите стоимость товара");
-        String price = scanner.nextLine();
-        product.setPrice(Double.parseDouble(price));
-
-        product.setCategory(findCategory);
-        try{
-            entityManager.getTransaction().begin();
-            entityManager.persist(product);
-            entityManager.getTransaction().commit();
-            System.out.println("Товар создан");
-            System.out.println("ID: " + product.getId());
-            System.out.println("стоимость: " + product.getPrice());
-            System.out.println("Название категории: " + product.getCategory().getName());
-        }catch (Exception e){
-            entityManager.getTransaction().rollback();
-            System.out.println("Возникла ошибка: " + e.getMessage());
-        }
 
 
 
