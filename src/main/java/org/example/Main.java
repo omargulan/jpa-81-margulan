@@ -3,6 +3,8 @@ package org.example;
 import jakarta.persistence.*;
 import org.example.Model.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -281,15 +283,47 @@ public class Main {
 //            entityManager.getTransaction().rollback();
 //            System.out.println(e.getMessage());
 //        }
-        List<Film> films = entityManager.createQuery("select f from Film f", Film.class).getResultList();
-        for (Film film : films){
-            System.out.println(film.getTitle()+ " "+ film.getMpa());
+//        List<Film> films = entityManager.createQuery("select f from Film f", Film.class).getResultList();
+//        for (Film film : films){
+//            System.out.println(film.getTitle()+ " "+ film.getMpa());
+//        }
+
+        Category category = new Category();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите название категорий");
+        category.setName(scanner.nextLine());
+
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(category);
+            entityManager.getTransaction().commit();
+            System.out.println("Категория создана");
+
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
         }
+        int savedID =category.getId();
 
+        System.out.println("Введите название характеристики");
+        Scanner inputOptions = new Scanner(System.in);
+        List<String> optionNames = Arrays.asList(inputOptions.nextLine().split("\\s+"));
+        try {
+            entityManager.getTransaction().begin();
+            List<Option> optionList = new ArrayList<>();
+            for( String optionName : optionNames){
+                Option option = new Option();
+                option.setName(optionName);
+                option.setCategory(category);
+                entityManager.persist(option);
+                optionList.add(option);
+            }
 
+            entityManager.getTransaction().commit();
+            System.out.println("Характеристики созданы");
 
-
-
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
 
     }
 }
