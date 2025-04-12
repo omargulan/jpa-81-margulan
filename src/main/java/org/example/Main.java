@@ -288,41 +288,53 @@ public class Main {
 //            System.out.println(film.getTitle()+ " "+ film.getMpa());
 //        }
 
-        Category category = new Category();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите название категорий");
-        category.setName(scanner.nextLine());
+//        Category category = new Category();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Введите название категорий");
+//        category.setName(scanner.nextLine());
+//
+//        try {
+//            entityManager.getTransaction().begin();
+//            entityManager.persist(category);
+//            entityManager.getTransaction().commit();
+//            System.out.println("Категория создана");
+//
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//        }
+//        int savedID =category.getId();
+//
+//        System.out.println("Введите название характеристики");
+//        Scanner inputOptions = new Scanner(System.in);
+//        List<String> optionNames = Arrays.asList(inputOptions.nextLine().split("\\s+"));
+//        try {
+//            entityManager.getTransaction().begin();
+//            List<Option> optionList = new ArrayList<>();
+//            for( String optionName : optionNames){
+//                Option option = new Option();
+//                option.setName(optionName);
+//                option.setCategory(category);
+//                entityManager.persist(option);
+//                optionList.add(option);
+//            }
+//
+//            entityManager.getTransaction().commit();
+//            System.out.println("Характеристики созданы");
+//
+//        } catch (Exception e) {
+//            entityManager.getTransaction().rollback();
+//        }
+        // все отзывы по товарам
 
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(category);
-            entityManager.getTransaction().commit();
-            System.out.println("Категория создана");
+        Product product = entityManager.find(Product.class, 2);
+        System.out.println(product.getName());
+        System.out.println("Reviews");
+        for(Review review: product.getReviews()){
 
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-        }
-        int savedID =category.getId();
-
-        System.out.println("Введите название характеристики");
-        Scanner inputOptions = new Scanner(System.in);
-        List<String> optionNames = Arrays.asList(inputOptions.nextLine().split("\\s+"));
-        try {
-            entityManager.getTransaction().begin();
-            List<Option> optionList = new ArrayList<>();
-            for( String optionName : optionNames){
-                Option option = new Option();
-                option.setName(optionName);
-                option.setCategory(category);
-                entityManager.persist(option);
-                optionList.add(option);
-            }
-
-            entityManager.getTransaction().commit();
-            System.out.println("Характеристики созданы");
-
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            // имя пользователя
+            // рейтинг
+            // дата
+            System.out.println();
         }
 
     }
