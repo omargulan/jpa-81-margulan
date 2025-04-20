@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -25,5 +26,15 @@ public class Film {
 
     @Enumerated
     private Mpa mpa;
+
+    @ManyToMany
+    @JoinTable(
+            name = "films_genres",
+            joinColumns = @JoinColumn(name = "films_id"),
+            inverseJoinColumns = @JoinColumn(name = "genres_id")
+    )
+    private List<Genre> genres;
+
+
 
 }

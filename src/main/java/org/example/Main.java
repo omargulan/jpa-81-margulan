@@ -326,16 +326,24 @@ public class Main {
 //        }
         // все отзывы по товарам
 
-        Product product = entityManager.find(Product.class, 2);
-        System.out.println(product.getName());
-        System.out.println("Reviews");
-        for(Review review: product.getReviews()){
-
-            // имя пользователя
-            // рейтинг
-            // дата
-            System.out.println();
+//        Product product = entityManager.find(Product.class, 2);
+//        System.out.println(product.getName());
+//        System.out.println("Reviews");
+//        for(Review review: product.getReviews()){
+//
+//            // имя пользователя
+//            // рейтинг
+//            // дата
+//            System.out.println();
+//        }
+        Film film = new Film();
+        film  = entityManager.find(Film.class, 1);
+        for (Genre genre : film.getGenres()){
+            System.out.println(genre.getId() + " - " + genre.getName());
         }
+
+
+
 
     }
 }
